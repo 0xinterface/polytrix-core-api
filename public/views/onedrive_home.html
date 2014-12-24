@@ -1,0 +1,53 @@
+<html ng-app="onedrive">
+<head>
+	<title>Home - oneDrive</title>
+	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.28/angular.min.js"></script>
+	<script src="/js/onedrive.js"></script>
+</head>
+<body>
+	<a href="/api/onedrive/auth/">auth</a><br>
+	Search your folder
+	<div ng-controller="fileInfo as f">
+		<form onsubmit="return false;" ng-submit="submit();">
+			<input ng-model="i" type="text" />
+			<input type="submit" value="submit" />
+		</form>
+		<div> {{ status }} </div>
+		<ul>
+			<li>
+				<a href="javascript:void(0);" ng-click="click('/');">
+					../
+				</a>
+			</li>
+			<li ng-repeat="item in data">
+				<a ng-show="item.is_folder" href="javascript:void(0);" ng-click="click(item.identifier);"> {{ item.name }} </a>
+				<a ng-show="item.is_file">{{ item.name }}</a>
+				<a href="javascript:void(0);" ng-show="item.is_file" ng-click="download(item.identifier);"> download (ajax)</a>
+				<a href="/api/onedrive/download/?i={{item.identifier}}"> download</a>
+			</li>
+			
+		</ul>
+	</div>
+		<script>
+function chgAction( action_name )
+{
+    // if( action_name=="aaa" ) {
+    //     document.search-theme-form.action = "/AAA";
+    // }
+    // else if( action_name=="bbb" ) {
+    //     document.search-theme-form.action = "/BBB";
+    // }
+    // else if( action_name=="ccc" ) {
+    //     document.search-theme-form.action = "/CCC";
+    // }
+}
+	</script>
+	<form action="https://apis.live.net/v5.0/me/skydrive/files">
+		<input type="hidden" name="access_token" value="EwBwAq1DBAAUGCCXc8wU/zFu9QnLdZXy+YnElFkAAciRVmJqaa/OvxlhWInlQ/aBAEs62W4bpQ86V4CusMXH/1BVBYPBYSanfE9JWURFwaOU+OFjqp6Qp5kT6WRX2OKgI/A7qwOx+MoFaNAoKxdZYgn2oOCvZCgEdHeYpbSvC+SPZsAwNimMi863CXKM/WXovanevxx3UENvY2n8Ntm7F99TVu4hMdHEK8GbrKC+P115a/wKjlbACSbBvop/StY0L2EGMdxxpJSomqU6nWdq6vfzdHlBzRcvajWmoUUIPZVqxKqDNULt5eRYHPx3U5DKa6ArDJmoixYYBzHcBdJDbxfiZ9dZvBphk6HZ6ewujAt4DJY1D0I3dLtVlJWgkZcDZgAACA3b7oa2rxn+QAFMoOZwChc6cS+VIRyiqRNjPwfrbHN8eLOAeB29JubMAAwV5L16JsIlU5Yg93u6WtbwXocPm+/cwbMvarwfVxo/ncKG/hoHN8mfCygts87qPx4KyhpPdK8s6nSezKnw56OUhiKSfD82Na+I4yZFjBtvgmnLtsE6327DnrL9HEngMH4lIYK2PrR+rMs0HpEtYO6ZyjJ1RTkYIlpmswWqjSfTRzeqGXb5rPvV+Ia8EjMJ8zf59R3y25GVFGJURtEtGSFXsGBB7KidtX7jWdhojUH+HLLScU744ly+vm4JA8Z93eYY11t9theZsk+dbI3WobzoPrMMQPxNq/nFUs3x9RUFrpFWllShvZgKzkjSJrHndYHXyEf4GO5osvL/OtKjfAsLgZZqCoMkjNMhO/gPImJkD02PxLAdtCAi7VgFn9M72lgB">
+		<button type="submit">submit</button>
+	</form>
+</body>
+
+</html>
